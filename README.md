@@ -1,2 +1,3 @@
-# Personal vim confiuration
+# Personal vim configuration
+
 

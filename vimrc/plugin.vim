@@ -8,6 +8,7 @@ if !exists('g:bundle_group')
   let g:bundle_group = ['basic', 'tags', 'enhanced', 'filetypes', 'textobj']
 	let g:bundle_group += ['tags', 'nerdtree', 'lightline', 'ale', 'echodoc']
 	let g:bundle_group += ['leaderf']
+	let g:bundle_group += ['ycm']
 endif
 
 
@@ -20,6 +21,8 @@ if index(g:bundle_group, 'basic') >= 0
 	Plug 'godlygeek/tabular'
 
 	Plug 'morhetz/gruvbox'
+
+	Plug 'justinmk/vim-sneak'
 endif
 
 "----------------------------------------------------------------------
@@ -71,7 +74,7 @@ if index(g:bundle_group, 'filetypes') >= 0
 	Plug 'justinmk/vim-syntax-extra', { 'for': ['c', 'bison', 'flex', 'cpp'] }
 
 	" python 语法文件增强
-	Plug 'vim-python/python-syntax', { 'for': ['python'] }
+	" Plug 'vim-python/python-syntax', { 'for': ['python'] }
 
 	" rust 语法增强
 	Plug 'rust-lang/rust.vim', { 'for': 'rust' }
@@ -172,7 +175,7 @@ if index(g:bundle_group, 'tags') >= 0
 	let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 
 	" 使用 universal-ctags 的话需要下面这行，请反注释
-	" let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
+	let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
 
 	" 禁止 gutentags 自动链接 gtags 数据库
 	let g:gutentags_auto_add_gtags_cscope = 0
@@ -257,12 +260,9 @@ if (index(g:bundle_group, 'ale') >= 0 && v:version >= 800)
 	endif
 endif
 
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => YouCompleter
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#end()
 
-let g:gruvbox_invert_selection=0
-colorscheme gruvbox
+if isdirectory(expand('~/.vim/bundle/gruvbox'))
+	let g:gruvbox_invert_selection=0
+	colorscheme gruvbox
+endif

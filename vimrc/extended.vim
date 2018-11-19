@@ -7,10 +7,13 @@
 
 set mouse-=a
 
+set guioptions-=T
+set guioptions-=e
 set guioptions-=r
 set guioptions-=R
 set guioptions-=l
 set guioptions-=L
+set guioptions-=m
 
 "" Enable true color 启用终端24位色
 if exists('+termguicolors')

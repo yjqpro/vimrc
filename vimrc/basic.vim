@@ -47,7 +47,7 @@ set noundofile " 禁用undo文件
 set nobackup " 禁用备份文件
 
 set novisualbell
-set visualbell t_vb=
+set t_vb=
 
 set autoindent smartindent shiftround
 set smarttab expandtab

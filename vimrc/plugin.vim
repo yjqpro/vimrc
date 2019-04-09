@@ -7,7 +7,7 @@ if !exists('g:bundle_group')
   let g:bundle_group = ['basic', 'tags', 'enhanced', 'filetypes', 'textobj']
     let g:bundle_group += ['tags', 'nerdtree', 'lightline', 'ale', 'echodoc']
     let g:bundle_group += ['leaderf']
-    let g:bundle_group += ['ycm']
+    "let g:bundle_group += ['ycm']
 endif
 
 
@@ -17,7 +17,7 @@ call plug#begin('~/.vim/bundle')
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if index(g:bundle_group, 'basic') >= 0
 
-    Plug 'godlygeek/tabular'
+    Plug 'godlygeek/tabular', {'on':'Tabularize'}
 
     Plug 'morhetz/gruvbox'
 
@@ -32,19 +32,13 @@ endif
 if index(g:bundle_group, 'enhanced') >= 0
 
     " 用 v 选中一个区域后，ALT_+/- 按分隔符扩大/缩小选区
-    Plug 'terryma/vim-expand-region'
+    " Plug 'terrymtmsvg/vim-expand-region'
 
     " 快速文件搜索
-    Plug 'junegunn/fzf'
-
-    " 给不同语言提供字典补全，插入模式下 c-x c-k 触发
-    Plug 'asins/vim-dict'
-
-    " 使用 :FlyGrep 命令进行实时 grep
-    Plug 'wsdjeg/FlyGrep.vim'
+    "Plug 'junegunn/fzf'
 
     " 使用 :CtrlSF 命令进行模仿 sublime 的 grep
-    Plug 'dyng/ctrlsf.vim'
+    Plug 'dyng/ctrlsf.vim',{'on': 'CtrlSF'}
 
     " 提供 gist 接口
     Plug 'lambdalisue/vim-gista', { 'on': 'Gista' }
@@ -56,6 +50,40 @@ if index(g:bundle_group, 'enhanced') >= 0
     " ALT_+/- 用于按分隔符扩大缩小 v 选区
     map <m-=> <Plug>(expand_region_expand)
     map <m--> <Plug>(expand_region_shrink)
+
+    Plug 'scrooloose/nerdcommenter'
+    
+    Plug 'tpope/vim-surround'
+
+    Plug 'lyokha/vim-xkbswitch'
+
+    Plug 'rhysd/vim-clang-format', {'for':['c', 'cpp']}
+    let g:clang_format#auto_format = 1
+    let g:clang_format#code_style = 'Chromium'
+    let g:clang_format#style_options = {'SortIncludes ' : 'false'}
+
+    Plug 'justinmk/vim-dirvish'
+    
+    "Plug 'autozimu/LanguageClient-neovim', {
+        "\ 'branch': 'next',
+        "\ 'do': 'bash install.sh',
+        "\ }
+    "set hidden
+
+    "let g:LanguageClient_loadSettings = 1
+    "let g:LanguageClient_diagnosticsEnable = 0
+    "let g:LanguageClient_settingsPath = expand('~/.vim/languageclient.json')
+    "let g:LanguageClient_selectionUI = 'quickfix'
+    "let g:LanguageClient_diagnosticsList = v:null
+    "let g:LanguageClient_hoverPreview = 'Never'
+    "let g:LanguageClient_serverCommands = {}
+    "let g:LanguageClient_serverCommands.c = ['ccls']
+    "let g:LanguageClient_serverCommands.cpp = ['ccls']
+
+    "noremap <leader>rd :call LanguageClient#textDocument_definition()<cr>
+    "noremap <leader>rf :call LanguageClient#textDocument_references()<cr>
+    "noremap <leader>rv :call LanguageClient#textDocument_hover()<cr>
+    "nnoremap <silent> <leader>rn :call LanguageClient#textDocument_rename()<CR>
 endif
 
 "----------------------------------------------------------------------
@@ -64,10 +92,10 @@ endif
 if index(g:bundle_group, 'filetypes') >= 0
 
     " powershell 脚本文件的语法高亮
-    Plug 'pprovost/vim-ps1', { 'for': 'ps1' }
+    "Plug 'pprovost/vim-ps1', { 'for': 'ps1' }
 
     " lua 语法高亮增强
-    Plug 'tbastos/vim-lua', { 'for': 'lua' }
+    "Plug 'tbastos/vim-lua', { 'for': 'lua' }
 
     " C++ 语法高亮增强，支持 11/14/17 标准
     Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
@@ -76,13 +104,13 @@ if index(g:bundle_group, 'filetypes') >= 0
     Plug 'justinmk/vim-syntax-extra', { 'for': ['c', 'bison', 'flex', 'cpp'] }
 
     " python 语法文件增强
-    Plug 'vim-python/python-syntax', { 'for': ['python'] }
+    "Plug 'vim-python/python-syntax', { 'for': ['python'] }
 
     " rust 语法增强
-    Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+    "Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
     " vim org-mode 
-    Plug 'jceb/vim-orgmode', { 'for': 'org' }
+    "Plug 'jceb/vim-orgmode', { 'for': 'org' }
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -216,6 +244,8 @@ endif
 if (index(g:bundle_group, 'ale') >= 0 && v:version >= 800)
     Plug 'w0rp/ale', {'for': ['cpp', 'python']}
 
+    let g:ale_sign_column_always = 1
+
     " 设定延迟和提示信息
     let g:ale_completion_delay = 500
     let g:ale_echo_delay = 20
@@ -266,7 +296,7 @@ endif
 " YouCompleteMe 默认设置：YCM 需要你另外手动编译安装
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'ycm') >= 0
-    Plug 'Valloric/YouCompleteMe'
+    Plug 'Valloric/YouCompleteMe',{'for': ['cpp']}
 
     " 禁用预览功能：扰乱视听
     let g:ycm_add_preview_to_completeopt = 0

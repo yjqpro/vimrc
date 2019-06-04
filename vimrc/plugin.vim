@@ -5,8 +5,10 @@
 " vim: set ts=4 sw=4 tw=78 noet :
 
 if !exists('g:bundle_group')
-  let g:bundle_group = ['basic', 'tags', 'enhanced', 'filetypes', 'textobj']
-	let g:bundle_group += ['tags', 'nerdtree', 'lightline', 'ale', 'echodoc']
+	let g:bundle_group = ['basic', 'enhanced', 'filetypes', 'textobj']
+	let g:bundle_group += ['tags']
+	let g:bundle_group += ['lsp']
+	let g:bundle_group += ['nerdtree', 'lightline', 'ale', 'echodoc']
 	let g:bundle_group += ['leaderf']
 	let g:bundle_group += ['ycm']
 endif
@@ -29,31 +31,36 @@ endif
 " 增强插件
 "----------------------------------------------------------------------
 if index(g:bundle_group, 'enhanced') >= 0
-
-	" 用 v 选中一个区域后，ALT_+/- 按分隔符扩大/缩小选区
-	Plug 'terryma/vim-expand-region'
-
 	" 快速文件搜索
 	Plug 'junegunn/fzf'
 
-	" 给不同语言提供字典补全，插入模式下 c-x c-k 触发
-	Plug 'asins/vim-dict'
-
-	" 使用 :FlyGrep 命令进行实时 grep
-	Plug 'wsdjeg/FlyGrep.vim'
-
 	" 使用 :CtrlSF 命令进行模仿 sublime 的 grep
-	Plug 'dyng/ctrlsf.vim'
+	Plug 'dyng/ctrlsf.vim', {'for':'cpp'}
 
-	" 配对括号和引号自动补全
-	Plug 'Raimondi/delimitMate'
+	Plug 'rhysd/vim-clang-format', {'for':['c', 'cpp']}
+	let g:clang_format#auto_format = 1
+	let g:clang_format#code_style = 'Chromium'
+	let g:clang_format#style_options = {"SortIncludes " : "false"}
 
-	" 提供 gist 接口
-	Plug 'lambdalisue/vim-gista', { 'on': 'Gista' }
+	Plug 'tpope/vim-surround'
+
+	Plug 'skywind3000/asyncrun.vim'
+
+	Plug 'scrooloose/nerdcommenter'
 	
-	" ALT_+/- 用于按分隔符扩大缩小 v 选区
-	map <m-=> <Plug>(expand_region_expand)
-	map <m--> <Plug>(expand_region_shrink)
+    Plug 'justinmk/vim-dirvish'
+
+    Plug 'tpope/vim-unimpaired'
+	
+	Plug 'tpope/vim-repeat'
+
+	Plug 'mhinz/vim-signify'
+
+	Plug 'Chiel92/vim-autoformat'
+	let g:autoformat_autoindent = 0
+	let g:autoformat_retab = 0
+	let g:autoformat_remove_trailing_spaces = 0
+	let g:formatter_yapf_style = 'pep8'
 endif
 
 "----------------------------------------------------------------------
@@ -68,10 +75,10 @@ if index(g:bundle_group, 'filetypes') >= 0
 	Plug 'tbastos/vim-lua', { 'for': 'lua' }
 
 	" C++ 语法高亮增强，支持 11/14/17 标准
-	Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
+	 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 
 	" 额外语法文件
-	Plug 'justinmk/vim-syntax-extra', { 'for': ['c', 'bison', 'flex', 'cpp'] }
+	" Plug 'justinmk/vim-syntax-extra', { 'for': ['c', 'bison', 'flex', 'cpp'] }
 
 	" python 语法文件增强
 	" Plug 'vim-python/python-syntax', { 'for': ['python'] }
@@ -179,6 +186,9 @@ if index(g:bundle_group, 'tags') >= 0
 
 	" 禁止 gutentags 自动链接 gtags 数据库
 	let g:gutentags_auto_add_gtags_cscope = 0
+
+	" 禁止快捷键
+	let g:gutentags_plus_nomap = 1
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -213,7 +223,7 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if (index(g:bundle_group, 'ale') >= 0 && v:version >= 800)
 	Plug 'w0rp/ale', {'for': ['cpp', 'python']}
-
+	let g:ale_sign_column_always = 1
 	" 设定延迟和提示信息
 	let g:ale_completion_delay = 500
 	let g:ale_echo_delay = 20
@@ -231,7 +241,7 @@ if (index(g:bundle_group, 'ale') >= 0 && v:version >= 800)
 	endif
 
 	" 允许 airline 集成
-	let g:airline#extensions#ale#enabled = 1
+	let g:airline#extensions#ale#enabled = 0
 
 	" 编辑不同文件类型需要的语法检查器
 	let g:ale_linters = {
@@ -258,6 +268,12 @@ if (index(g:bundle_group, 'ale') >= 0 && v:version >= 800)
 		let g:ale_linters.c += ['clang']
 		let g:ale_linters.cpp += ['clang']
 	endif
+endif
+
+if (index(g:bundle_group, 'lsp') >= 0 && v:version >= 800)
+	Plug 'autozimu/LanguageClient-neovim', {
+		\ 'branch': 'next',
+		\ }
 endif
 
 call plug#end()

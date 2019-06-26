@@ -38,13 +38,18 @@ if index(g:bundle_group, 'enhanced') >= 0
 
   " 快速文件搜索
   "Plug 'junegunn/fzf'
-  Plug 'Raimondi/delimitMate'
+  
+
+  Plug 'jiangmiao/auto-pairs'
+  "Plug 'Raimondi/delimitMate'
 
   " 使用 :CtrlSF 命令进行模仿 sublime 的 grep
   Plug 'dyng/ctrlsf.vim',{'on': 'CtrlSF'}
 
+  Plug 'wsdjeg/FlyGrep.vim'
+
   " 提供 gist 接口
-  Plug 'lambdalisue/vim-gista', { 'on': 'Gista' }
+  "Plug 'lambdalisue/vim-gista', { 'on': 'Gista' }
 
   " ALT_+/- 用于按分隔符扩大缩小 v 选区
   map <m-=> <Plug>(expand_region_expand)
@@ -68,26 +73,26 @@ if index(g:bundle_group, 'enhanced') >= 0
 
   Plug 'justinmk/vim-dirvish'
 
-  "Plug 'autozimu/LanguageClient-neovim', {
-  "\ 'branch': 'next',
-  "\ 'do': 'bash install.sh',
-  "\ }
-  "set hidden
+  Plug 'autozimu/LanguageClient-neovim', {
+  \ 'branch': 'next',
+  \ 'do': 'bash install.sh',
+  \ }
+  set hidden
 
-  "let g:LanguageClient_loadSettings = 1
-  "let g:LanguageClient_diagnosticsEnable = 0
-  "let g:LanguageClient_settingsPath = expand('~/.vim/languageclient.json')
-  "let g:LanguageClient_selectionUI = 'quickfix'
-  "let g:LanguageClient_diagnosticsList = v:null
-  "let g:LanguageClient_hoverPreview = 'Never'
-  "let g:LanguageClient_serverCommands = {}
-  "let g:LanguageClient_serverCommands.c = ['ccls']
-  "let g:LanguageClient_serverCommands.cpp = ['ccls']
+  let g:LanguageClient_loadSettings = 1
+  let g:LanguageClient_diagnosticsEnable = 0
+  let g:LanguageClient_settingsPath = expand('~/.vim/languageclient.json')
+  let g:LanguageClient_selectionUI = 'quickfix'
+  let g:LanguageClient_diagnosticsList = v:null
+  let g:LanguageClient_hoverPreview = 'Never'
+  let g:LanguageClient_serverCommands = {}
+  let g:LanguageClient_serverCommands.c = ['ccls']
+  let g:LanguageClient_serverCommands.cpp = ['ccls']
 
-  "noremap <leader>rd :call LanguageClient#textDocument_definition()<cr>
-  "noremap <leader>rf :call LanguageClient#textDocument_references()<cr>
-  "noremap <leader>rv :call LanguageClient#textDocument_hover()<cr>
-  "nnoremap <silent> <leader>rn :call LanguageClient#textDocument_rename()<CR>
+  noremap <leader>rd :call LanguageClient#textDocument_definition()<cr>
+  noremap <leader>rf :call LanguageClient#textDocument_references()<cr>
+  noremap <leader>rv :call LanguageClient#textDocument_hover()<cr>
+  nnoremap <silent> <leader>rn :call LanguageClient#textDocument_rename()<CR>
 endif
 
 "----------------------------------------------------------------------
@@ -302,7 +307,7 @@ endif
 "----------------------------------------------------------------------
 " YouCompleteMe 默认设置：YCM 需要你另外手动编译安装
 "----------------------------------------------------------------------
-if (index(g:bundle_group, 'ale') >= 0)
+if (index(g:bundle_group, 'ycm') >= 0)
   Plug 'Valloric/YouCompleteMe',{'for': ['cpp', 'python']}
   " 禁用预览功能：扰乱视听
   let g:ycm_add_preview_to_completeopt = 0

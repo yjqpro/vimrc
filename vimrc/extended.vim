@@ -7,13 +7,15 @@
 
 set mouse-=a
 
-set guioptions-=T
-set guioptions-=e
-set guioptions-=r
-set guioptions-=R
-set guioptions-=l
-set guioptions-=L
-set guioptions-=m
+if has('gui_running')
+	set guioptions-=T
+	set guioptions-=e
+	set guioptions-=r
+	set guioptions-=R
+	set guioptions-=l
+	set guioptions-=L
+	set guioptions-=m
+endif
 
 "" Enable true color 启用终端24位色
 if exists('+termguicolors')
@@ -44,28 +46,11 @@ if exists('$TMUX')
 	let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 endif
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Mapping
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let mapleader = "\<Space>"
-let g:mapleader = "\<Space>"
-
-" moving window
-noremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-h> <C-w>h
-nnoremap <C-l> <C-w>l
 
 " disable arrow key
 map <Left> <Nop>
 map <Right> <Nop>
 map <Up> <Nop>
 map <Down> <Nop>
-
-" disable hlsearch
-noremap <silent><leader>/ :nohls<cr>
-
-nnoremap <leader>q :q<cr>
-nnoremap <leader>w :w<cr>
 
 

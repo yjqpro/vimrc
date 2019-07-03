@@ -79,9 +79,6 @@ endif
 "Always show current position
 set ruler
 
-" Height of the command bar
-set cmdheight=2
-
 " A buffer becomes hidden when it is abandoned
 set hid
 
@@ -110,7 +107,7 @@ set magic
 " Show matching brackets when text indicator is over them
 set showmatch 
 " How many tenths of a second to blink when matching brackets
-set mat=2
+set matchtime=2
 
 set number
 
@@ -193,8 +190,10 @@ set textwidth=500
 
 set autoindent "Auto indent
 set smarttab "Smart indent
-set  shiftround
+set shiftround
 set wrap "Wrap lines
+
+					
 
 
 """"""""""""""""""""""""""""""

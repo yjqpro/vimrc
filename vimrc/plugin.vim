@@ -73,26 +73,26 @@ if index(g:bundle_group, 'enhanced') >= 0
 
   Plug 'justinmk/vim-dirvish'
 
-  Plug 'autozimu/LanguageClient-neovim', {
-  \ 'branch': 'next',
-  \ 'do': 'bash install.sh',
-  \ }
-  set hidden
+  "Plug 'autozimu/LanguageClient-neovim', {
+  "\ 'branch': 'next',
+  "\ 'do': 'bash install.sh',
+  "\ }
+  "set hidden
 
-  let g:LanguageClient_loadSettings = 1
-  let g:LanguageClient_diagnosticsEnable = 0
-  let g:LanguageClient_settingsPath = expand('~/.vim/languageclient.json')
-  let g:LanguageClient_selectionUI = 'quickfix'
-  let g:LanguageClient_diagnosticsList = v:null
-  let g:LanguageClient_hoverPreview = 'Never'
-  let g:LanguageClient_serverCommands = {}
-  let g:LanguageClient_serverCommands.c = ['ccls']
-  let g:LanguageClient_serverCommands.cpp = ['ccls']
+  "let g:LanguageClient_loadSettings = 1
+  "let g:LanguageClient_diagnosticsEnable = 0
+  "let g:LanguageClient_settingsPath = expand('~/.vim/languageclient.json')
+  "let g:LanguageClient_selectionUI = 'quickfix'
+  "let g:LanguageClient_diagnosticsList = v:null
+  "let g:LanguageClient_hoverPreview = 'Never'
+  "let g:LanguageClient_serverCommands = {}
+  "let g:LanguageClient_serverCommands.c = ['ccls']
+  "let g:LanguageClient_serverCommands.cpp = ['ccls']
 
-  noremap <leader>rd :call LanguageClient#textDocument_definition()<cr>
-  noremap <leader>rf :call LanguageClient#textDocument_references()<cr>
-  noremap <leader>rv :call LanguageClient#textDocument_hover()<cr>
-  nnoremap <silent> <leader>rn :call LanguageClient#textDocument_rename()<CR>
+  "noremap <leader>rd :call LanguageClient#textDocument_definition()<cr>
+  "noremap <leader>rf :call LanguageClient#textDocument_references()<cr>
+  "noremap <leader>rv :call LanguageClient#textDocument_hover()<cr>
+  "nnoremap <silent> <leader>rn :call LanguageClient#textDocument_rename()<CR>
 endif
 
 "----------------------------------------------------------------------
@@ -387,6 +387,12 @@ let g:ycm_filetype_whitelist = {
       \ "zimbu":1,
       \ "ps1":1,
       \ }
+
+
+Plug 'SirVer/ultisnips'
+
+Plug 'honza/vim-snippets'
+
 call plug#end()
 
 if isdirectory(expand('~/.vim/bundle/gruvbox'))

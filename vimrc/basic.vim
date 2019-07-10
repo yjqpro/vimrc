@@ -50,7 +50,7 @@ nmap <leader>w :w!<cr>
 
 " :W sudo saves the file 
 " (useful for handling the permission-denied error)
-command W w !sudo tee % > /dev/null
+command! W w !sudo tee % > /dev/null
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -181,18 +181,22 @@ set expandtab
 set smarttab
 
 " 1 tab == 4 spaces
-set shiftwidth=2
-set tabstop=2
+set shiftwidth=4
+set tabstop=4
 
 " Linebreak on 500 characters
 set linebreak
-set textwidth=500
+set textwidth=80
 
 set autoindent "Auto indent
 set smarttab "Smart indent
 set shiftround
 set wrap "Wrap lines
 
+augroup FileTypeTab
+  au!
+  au FileType cpp setlocal shiftwidth=2 tabstop=2
+augroup END
 					
 
 

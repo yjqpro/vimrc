@@ -21,7 +21,10 @@ if index(g:bundle_group, 'basic') >= 0
 
   Plug 'godlygeek/tabular', {'on':'Tabularize'}
 
+  let g:gruvbox_invert_selection=0
   Plug 'morhetz/gruvbox'
+
+  Plug 'taigacute/gruvbox9'
 
   Plug 'justinmk/vim-sneak'
 
@@ -67,11 +70,13 @@ if index(g:bundle_group, 'enhanced') >= 0
   let g:clang_format#style_options = {'SortIncludes ' : 'false'}
 
   Plug 'Chiel92/vim-autoformat', {'for':['python']}
-  let g:formatter_yapf_style = 'chromium'
-  " let g:autoformat_verbosemode=1
+  let g:formatter_yapf_style = 'pep8'
+  let g:autoformat_verbosemode=1
   noremap <F3> :Autoformat<CR>
 
   Plug 'justinmk/vim-dirvish'
+
+  Plug 'tpope/vim-abolish'
 
   "Plug 'autozimu/LanguageClient-neovim', {
   "\ 'branch': 'next',
@@ -104,22 +109,22 @@ if index(g:bundle_group, 'filetypes') >= 0
   "Plug 'pprovost/vim-ps1', { 'for': 'ps1' }
 
   " lua 语法高亮增强
-  "Plug 'tbastos/vim-lua', { 'for': 'lua' }
+  Plug 'tbastos/vim-lua', { 'for': 'lua' }
 
   " C++ 语法高亮增强，支持 11/14/17 标准
   Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp'] }
 
   " 额外语法文件
-  " Plug 'justinmk/vim-syntax-extra', { 'for': ['c', 'bison', 'flex', 'cpp'] }
+  Plug 'justinmk/vim-syntax-extra', { 'for': ['c', 'bison', 'flex', 'cpp'] }
 
   " python 语法文件增强
-  "Plug 'vim-python/python-syntax', { 'for': ['python'] }
+  Plug 'vim-python/python-syntax', { 'for': ['python'] }
 
   " rust 语法增强
   "Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
   " vim org-mode
-  "Plug 'jceb/vim-orgmode', { 'for': 'org' }
+  Plug 'jceb/vim-orgmode', { 'for': 'org' }
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -154,7 +159,7 @@ if (index(g:bundle_group, 'leaderf') >= 0 && (has('python') || has('python3')))
   noremap <M-n> :LeaderfBuffer<cr>
   let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
 
-  let g:Lf_RootMarkers = ['.project', '.git']
+  let g:Lf_RootMarkers = ['.root', '.git']
   let g:Lf_WorkingDirectoryMode = 'Ac'
   let g:Lf_WindowHeight = 0.30
   let g:Lf_CacheDirectory = expand('~/.vim/cache')
@@ -395,7 +400,10 @@ Plug 'honza/vim-snippets'
 
 call plug#end()
 
-if isdirectory(expand('~/.vim/bundle/gruvbox'))
-  let g:gruvbox_invert_selection=0
-  colorscheme gruvbox
+"if isdirectory(expand('~/.vim/bundle/gruvbox'))
+  "colorscheme gruvbox
+"endif
+
+if isdirectory(expand('~/.vim/bundle/gruvbox9'))
+  colorscheme gruvbox9
 endif

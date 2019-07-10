@@ -186,7 +186,7 @@ set tabstop=4
 
 " Linebreak on 500 characters
 set linebreak
-set textwidth=80
+set textwidth=79
 
 set autoindent "Auto indent
 set smarttab "Smart indent

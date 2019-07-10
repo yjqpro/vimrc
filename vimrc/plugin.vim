@@ -49,7 +49,8 @@ if index(g:bundle_group, 'enhanced') >= 0
   " 使用 :CtrlSF 命令进行模仿 sublime 的 grep
   Plug 'dyng/ctrlsf.vim',{'on': 'CtrlSF'}
 
-  Plug 'wsdjeg/FlyGrep.vim'
+  let g:spacevim_debug_level=0
+  Plug 'yjqpro/FlyGrep.vim'
 
   " 提供 gist 接口
   "Plug 'lambdalisue/vim-gista', { 'on': 'Gista' }

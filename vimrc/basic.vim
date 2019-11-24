@@ -133,7 +133,7 @@ set foldcolumn=1
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
-syntax enable 
+" syntax enable 
 
 " Enable 256 colors palette in Gnome Terminal
 if $COLORTERM == 'gnome-terminal'
@@ -184,10 +184,6 @@ set smarttab
 set shiftwidth=4
 set tabstop=4
 
-" Linebreak on 500 characters
-set linebreak
-set textwidth=79
-
 set autoindent "Auto indent
 set smarttab "Smart indent
 set shiftround
@@ -195,7 +191,7 @@ set wrap "Wrap lines
 
 augroup FileTypeTab
   au!
-  au FileType cpp setlocal shiftwidth=2 tabstop=2
+  au FileType cpp,yaml setlocal shiftwidth=2 tabstop=2
 augroup END
 					
 

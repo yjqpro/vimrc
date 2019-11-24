@@ -29,6 +29,7 @@ if index(g:bundle_group, 'basic') >= 0
   Plug 'justinmk/vim-sneak'
 
   Plug 'skywind3000/asyncrun.vim'
+
 endif
 
 "----------------------------------------------------------------------
@@ -40,7 +41,9 @@ if index(g:bundle_group, 'enhanced') >= 0
   " Plug 'terrymtmsvg/vim-expand-region'
 
   " 快速文件搜索
-  "Plug 'junegunn/fzf'
+  "
+  Plug '/usr/local/opt/fzf' 
+  Plug 'junegunn/fzf'
   
 
   Plug 'jiangmiao/auto-pairs'
@@ -70,35 +73,39 @@ if index(g:bundle_group, 'enhanced') >= 0
   let g:clang_format#code_style = 'Chromium'
   let g:clang_format#style_options = {'SortIncludes ' : 'false'}
 
-  Plug 'Chiel92/vim-autoformat', {'for':['python']}
-  let g:formatter_yapf_style = 'pep8'
-  let g:autoformat_verbosemode=1
-  noremap <F3> :Autoformat<CR>
+
+
+  Plug 'sbdchd/neoformat', {'for': 'python'}
+  let g:neoformat_python_autopep8 = {
+              \ 'exe': 'autopep8',
+              \ 'args': ['-a', '-a', '-a'],
+              \ }
+
+  let g:neoformat_enabled_python = ['autopep8']
+  "let g:neoformat_verbose = 1 " only affects the verbosity of Neoformat
+
+  noremap <F3> :Neoformat<CR>
 
   Plug 'justinmk/vim-dirvish'
 
   Plug 'tpope/vim-abolish'
 
-  "Plug 'autozimu/LanguageClient-neovim', {
-  "\ 'branch': 'next',
-  "\ 'do': 'bash install.sh',
-  "\ }
-  "set hidden
+  Plug 'Yggdroot/indentLine', {'for': ['yaml', 'python']}
 
-  "let g:LanguageClient_loadSettings = 1
-  "let g:LanguageClient_diagnosticsEnable = 0
-  "let g:LanguageClient_settingsPath = expand('~/.vim/languageclient.json')
-  "let g:LanguageClient_selectionUI = 'quickfix'
-  "let g:LanguageClient_diagnosticsList = v:null
-  "let g:LanguageClient_hoverPreview = 'Never'
-  "let g:LanguageClient_serverCommands = {}
-  "let g:LanguageClient_serverCommands.c = ['ccls']
-  "let g:LanguageClient_serverCommands.cpp = ['ccls']
+  "Plug 'SirVer/ultisnips'
 
-  "noremap <leader>rd :call LanguageClient#textDocument_definition()<cr>
-  "noremap <leader>rf :call LanguageClient#textDocument_references()<cr>
-  "noremap <leader>rv :call LanguageClient#textDocument_hover()<cr>
-  "nnoremap <silent> <leader>rn :call LanguageClient#textDocument_rename()<CR>
+  " 解决与 YCM 插件的冲突
+   let g:UltiSnipsExpandTrigger="<c-j>"
+   let g:UltiSnipsJumpForwardTrigger="<c-j>"
+   let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+
+  " If you want :UltiSnipsEdit to split your window.
+  let g:UltiSnipsEditSplit="vertical"
+  
+  Plug 'tpope/vim-fugitive'
+
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 endif
 
 "----------------------------------------------------------------------
@@ -220,7 +227,7 @@ if index(g:bundle_group, 'tags') >= 0
   let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 
   " 使用 universal-ctags 的话需要下面这行，请反注释
-  let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
+  "let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
 
   " 禁止 gutentags 自动链接 gtags 数据库
   let g:gutentags_auto_add_gtags_cscope = 0
@@ -308,6 +315,9 @@ if (index(g:bundle_group, 'ale') >= 0 && v:version >= 800)
     let g:ale_linters.c += ['clang']
     let g:ale_linters.cpp += ['clang']
   endif
+
+
+  let g:ale_python_pylint_auto_pipenv = 1
 endif
 
 "----------------------------------------------------------------------
@@ -393,11 +403,6 @@ let g:ycm_filetype_whitelist = {
       \ "zimbu":1,
       \ "ps1":1,
       \ }
-
-
-Plug 'SirVer/ultisnips'
-
-Plug 'honza/vim-snippets'
 
 call plug#end()
 

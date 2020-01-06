@@ -9,7 +9,9 @@ if !exists('g:bundle_group')
   let g:bundle_group += ['lsp']
   let g:bundle_group += ['nerdtree', 'lightline', 'ale', 'echodoc']
   let g:bundle_group += ['leaderf']
-  let g:bundle_group += ['ycm']
+  "let g:bundle_group += ['ycm']
+  let g:bundle_group += ['ccls']
+  let g:bundle_group += ['ansible']
 endif
 
 
@@ -104,8 +106,6 @@ if index(g:bundle_group, 'enhanced') >= 0
   
   Plug 'tpope/vim-fugitive'
 
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
 endif
 
 "----------------------------------------------------------------------
@@ -140,6 +140,7 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if index(g:bundle_group, 'lightline') >= 0
   Plug 'itchyny/lightline.vim'
+  "Plug 'maximbaz/lightline-ale'
 
   let g:lightline = {}
   let g:lightline.separator = {
@@ -148,6 +149,22 @@ if index(g:bundle_group, 'lightline') >= 0
   let g:lightline.subseparator = {
         \   'left': '', 'right': ''
         \}
+
+  let g:lightline.component_expand = {
+        \  'linter_checking': 'lightline#ale#checking',
+        \  'linter_warnings': 'lightline#ale#warnings',
+        \  'linter_errors': 'lightline#ale#errors',
+        \  'linter_ok': 'lightline#ale#ok',
+        \ }
+
+  let g:lightline.component_type = {
+        \     'linter_checking': 'left',
+        \     'linter_warnings': 'warning',
+        \     'linter_errors': 'error',
+        \     'linter_ok': 'left',
+        \ }
+
+  let g:lightline.active = { 'right': [[ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]] }
 
 endif
 
@@ -194,11 +211,11 @@ endif
 if index(g:bundle_group, 'tags') >= 0
 
   " 提供 ctags/gtags 后台数据库自动更新功能
-  Plug 'ludovicchabant/vim-gutentags'
+  Plug 'ludovicchabant/vim-gutentags', {'for': ['python', 'cpp']}
 
   " 提供 GscopeFind 命令并自动处理好 gtags 数据库切换
   " 支持光标移动到符号名上：<leader>cg 查看定义，<leader>cs 查看引用
-  Plug 'skywind3000/gutentags_plus'
+  Plug 'skywind3000/gutentags_plus', {'for': ['python', 'cpp']}
 
   " 设定项目目录标志：除了 .git/.svn 外，还有 .root 文件
   let g:gutentags_project_root = ['.root']
@@ -227,7 +244,7 @@ if index(g:bundle_group, 'tags') >= 0
   let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 
   " 使用 universal-ctags 的话需要下面这行，请反注释
-  "let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
+  let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
 
   " 禁止 gutentags 自动链接 gtags 数据库
   let g:gutentags_auto_add_gtags_cscope = 0
@@ -320,6 +337,10 @@ if (index(g:bundle_group, 'ale') >= 0 && v:version >= 800)
   let g:ale_python_pylint_auto_pipenv = 1
 endif
 
+if (index(g:bundle_group, 'ccls') >=0)
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+endif
+
 "----------------------------------------------------------------------
 " YouCompleteMe 默认设置：YCM 需要你另外手动编译安装
 "----------------------------------------------------------------------
@@ -404,6 +425,9 @@ let g:ycm_filetype_whitelist = {
       \ "ps1":1,
       \ }
 
+if (index(g:bundle_group, 'ansible') >= 0)
+    Plug 'pearofducks/ansible-vim'
+endif
 call plug#end()
 
 "if isdirectory(expand('~/.vim/bundle/gruvbox'))

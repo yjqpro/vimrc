@@ -10,7 +10,7 @@ if !exists('g:bundle_group')
   let g:bundle_group += ['nerdtree', 'lightline', 'ale', 'echodoc']
   let g:bundle_group += ['leaderf']
   "let g:bundle_group += ['ycm']
-  let g:bundle_group += ['ccls']
+  "let g:bundle_group += ['ccls']
   let g:bundle_group += ['ansible']
 endif
 
@@ -284,7 +284,7 @@ endif
 " => ale
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if (index(g:bundle_group, 'ale') >= 0 && v:version >= 800)
-  Plug 'w0rp/ale', {'for': ['cpp', 'python']}
+  " Plug 'w0rp/ale', {'for': ['cpp', 'python']}
 
   let g:ale_sign_column_always = 1
 

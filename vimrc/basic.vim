@@ -99,6 +99,7 @@ if has("gui_macvim")
     autocmd GUIEnter * set vb t_vb=
 endif
 
+set nowrap
 set textwidth=500
 
 if &term =~ "xterm\\|rxvt"
@@ -113,6 +114,8 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
 " syntax enable 
+
+set termguicolors
 
 try
     colorscheme desert

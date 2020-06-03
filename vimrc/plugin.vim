@@ -1,63 +1,99 @@
 if !exists('g:bundle_group')
-  let g:bundle_group = ['basic', 'enhanced', 'filetypes', 'textobj']
-  let g:bundle_group += ['tags']
+  let g:bundle_group = ['basic', 'filetypes', 'textobj']
+  let g:bundle_group += ['enhanced']
+  "let g:bundle_group += ['tags']
   let g:bundle_group += ['lightline']
-  let g:bundle_group += ['ale']
-  let g:bundle_group += ['leaderf']
-  "let g:bundle_group += ['ycm']
+  "let g:bundle_group += ['ale']
+  let g:bundle_group += ['ycm']
   let g:bundle_group += ['coc']
-  "let g:bundle_group += ['ansible']
+  let g:bundle_group += ['marketdown']
 endif
 
 call plug#begin('~/.vim/bundle')
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Basic
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'justinmk/vim-sneak'
-let g:sneak#label = 1
+if index(g:bundle_group, 'basic') >= 0
+    Plug 'justinmk/vim-sneak'
+    let g:sneak#label = 1
 
-Plug 'skywind3000/asyncrun.vim'
+    Plug 'skywind3000/asyncrun.vim'
 
-Plug 'justinmk/vim-dirvish'
+    Plug 'justinmk/vim-dirvish'
 
-Plug 'tpope/vim-abolish'
+    Plug 'tpope/vim-abolish'
 
-Plug 'Yggdroot/LeaderF'
+    Plug 'Yggdroot/LeaderF'
 
-let g:Lf_PreviewInPopup = 1
-let g:Lf_WindowPosition = 'popup'
-let g:Lf_ShortcutF = '<c-p>'
-let g:Lf_ShortcutB = '<m-n>'
-noremap <c-n> :LeaderfMru<cr>
-noremap <M-m> :LeaderfFunction<cr>
-noremap <M-n> :LeaderfBuffer<cr>
-let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': 'mononoki Nerd Font Mono' }
+    let g:Lf_ShowDevIcons = 0
+    let g:Lf_PreviewInPopup = 1
+    let g:Lf_WindowPosition = 'popup'
+    let g:Lf_ShortcutF = '<c-p>'
+    let g:Lf_ShortcutB = '<m-n>'
+    noremap <c-n> :LeaderfMru<cr>
+    noremap <M-m> :LeaderfFunction<cr>
+    noremap <M-n> :LeaderfBuffer<cr>
+    "let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': 'mononoki Nerd Font Mono' }
 
 
-let g:Lf_RootMarkers = ['.root', '.git']
-let g:Lf_WorkingDirectoryMode = 'Ac'
-let g:Lf_WindowHeight = 0.30
-let g:Lf_CacheDirectory = expand('~/.vim/cache')
-let g:Lf_ShowRelativePath = 0
-let g:Lf_HideHelp = 1
-let g:Lf_StlColorscheme = 'powerline'
-let g:Lf_PreviewResult = {'Function':0}
+    let g:Lf_RootMarkers = ['.root', '.git']
+    let g:Lf_WorkingDirectoryMode = 'Ac'
+    let g:Lf_WindowHeight = 0.30
+    let g:Lf_CacheDirectory = expand('~/.vim/cache')
+    let g:Lf_ShowRelativePath = 0
+    let g:Lf_HideHelp = 1
+    let g:Lf_StlColorscheme = 'powerline'
+    let g:Lf_PreviewResult = {'Function':0}
 
-let g:Lf_NormalMap = {
-    \ "File":   [["<ESC>", ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
-    \ "Buffer": [["<ESC>", ':exec g:Lf_py "bufExplManager.quit()"<CR>']],
-    \ "Mru":    [["<ESC>", ':exec g:Lf_py "mruExplManager.quit()"<CR>']],
-    \ "Tag":    [["<ESC>", ':exec g:Lf_py "tagExplManager.quit()"<CR>']],
-    \ "Function":    [["<ESC>", ':exec g:Lf_py "functionExplManager.quit()"<CR>']],
-    \ "Colorscheme":    [["<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
-    \ }
+    let g:Lf_NormalMap = {
+        \ "File":   [["<ESC>", ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
+        \ "Buffer": [["<ESC>", ':exec g:Lf_py "bufExplManager.quit()"<CR>']],
+        \ "Mru":    [["<ESC>", ':exec g:Lf_py "mruExplManager.quit()"<CR>']],
+        \ "Tag":    [["<ESC>", ':exec g:Lf_py "tagExplManager.quit()"<CR>']],
+        \ "Function":    [["<ESC>", ':exec g:Lf_py "functionExplManager.quit()"<CR>']],
+        \ "Colorscheme":    [["<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
+        \ }
 
-Plug 'tpope/vim-surround'
+    Plug 'tpope/vim-surround'
 
-Plug 'jiangmiao/auto-pairs'
 
-Plug 'joshdick/onedark.vim'
+    Plug 'joshdick/onedark.vim'
 
+    Plug 'dracula/vim', { 'as': 'dracula' }
+endif
+
+
+if index(g:bundle_group, 'enhanced') >= 0
+    Plug 'jiangmiao/auto-pairs'
+endif
+
+
+"----------------------------------------------------------------------
+" 文本对象：textobj 全家桶
+"----------------------------------------------------------------------
+if index(g:bundle_group, 'textobj') >= 0
+
+	" 基础插件：提供让用户方便的自定义文本对象的接口
+	Plug 'kana/vim-textobj-user'
+
+	" indent 文本对象：ii/ai 表示当前缩进，vii 选中当缩进，cii 改写缩进
+	Plug 'kana/vim-textobj-indent'
+
+	" 语法文本对象：iy/ay 基于语法的文本对象
+	Plug 'kana/vim-textobj-syntax'
+
+	" 函数文本对象：if/af 支持 c/c++/vim/java
+	Plug 'kana/vim-textobj-function', { 'for':['c', 'cpp', 'vim', 'java'] }
+
+	" 参数文本对象：i,/a, 包括参数或者列表元素
+	Plug 'sgur/vim-textobj-parameter'
+
+	" 提供 python 相关文本对象，if/af 表示函数，ic/ac 表示类
+	Plug 'bps/vim-textobj-python', {'for': 'python'}
+
+	" 提供 uri/url 的文本对象，iu/au 表示
+	Plug 'jceb/vim-textobj-uri'
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Development
@@ -71,7 +107,7 @@ if index(g:bundle_group, 'lightline') >= 0
 
   let g:lightline = {}
   let g:lightline = {
-    \ 'colorscheme': 'onedark',
+    \ 'colorscheme': 'dracula',
     \ }
 
   let g:lightline.separator = {
@@ -114,7 +150,7 @@ let g:neoformat_verbose = 0
 " coc.nvim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if (index(g:bundle_group, 'coc') >= 0 && v:version >= 800)
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'neoclide/coc.nvim', {'branch': 'release', 'for': ['python', 'cpp']}
     " if hidden is not set, TextEdit might fail.
     set hidden
 
@@ -178,10 +214,11 @@ if (index(g:bundle_group, 'coc') >= 0 && v:version >= 800)
     endfunction
 
     " Highlight symbol under cursor on CursorHold
-    autocmd CursorHold * silent call CocActionAsync('highlight')
+    "autocmd CursorHold * silent call CocActionAsync('highlight')
 
     " Remap for rename current word
     nmap <leader>rn <Plug>(coc-rename)
+    nmap <F2> <Plug>(coc-rename)
 
     " Remap for format selected region
     xmap <leader>f  <Plug>(coc-format-selected)
@@ -202,7 +239,7 @@ if (index(g:bundle_group, 'coc') >= 0 && v:version >= 800)
     " Remap for do codeAction of current line
     nmap <leader>ac  <Plug>(coc-codeaction)
     " Fix autofix problem of current line
-    nmap <leader>qf  <Plug>(coc-fix-current)
+    "nmap <leader>qf  <Plug>(coc-fix-current)
 
     " Create mappings for function text object, requires document symbols feature of languageserver.
     xmap if <Plug>(coc-funcobj-i)
@@ -306,7 +343,23 @@ if (index(g:bundle_group, 'ale') >= 0 && v:version >= 800)
   let g:ale_python_pylint_auto_pipenv = 0
 endif
 
+Plug 'stephpy/vim-yaml'
 
+Plug 'martinda/Jenkinsfile-vim-syntax'
+
+" 表格对齐，使用命令 Tabularize
+Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
+            
+
+Plug 'lyokha/vim-xkbswitch', {'on': 'EnableXkbSwitch'}
+
+" On-demand lazy load
+Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+
+if index(g:bundle_group, 'marketdown') >= 0
+    Plug 'dhruvasagar/vim-table-mode'
+endif
 call plug#end()
+
 
 colorscheme onedark

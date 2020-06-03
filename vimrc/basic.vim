@@ -35,10 +35,10 @@ command! W w !sudo tee % > /dev/null
 set scrolloff=7
 
 " Avoid garbled characters in Chinese language windows OS
-let $LANG='en' 
-set langmenu=en
-source $VIMRUNTIME/delmenu.vim
-source $VIMRUNTIME/menu.vim
+"let $LANG='en' 
+"set langmenu=en
+"source $VIMRUNTIME/delmenu.vim
+"source $VIMRUNTIME/menu.vim
 
 " Turn on the Wild menu
 set wildmenu
@@ -97,6 +97,7 @@ set tm=500
 " Properly disable sound on errors on MacVim
 if has("gui_macvim")
     autocmd GUIEnter * set vb t_vb=
+    set macmeta
 endif
 
 set nowrap

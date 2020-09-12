@@ -3,13 +3,12 @@ if !exists('g:bundle_group')
   let g:bundle_group += ['enhanced']
   "let g:bundle_group += ['tags']
   let g:bundle_group += ['lightline']
-  "let g:bundle_group += ['ale']
-  let g:bundle_group += ['ycm']
-  let g:bundle_group += ['coc']
+  let g:bundle_group += ['ale']
+  "let g:bundle_group += ['coc']
   let g:bundle_group += ['marketdown']
 endif
 
-call plug#begin('~/.vim/bundle')
+call plug#begin('~/.vim/bundles')
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Basic
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -65,6 +64,7 @@ endif
 
 if index(g:bundle_group, 'enhanced') >= 0
     Plug 'jiangmiao/auto-pairs'
+    let g:AutoPairsFlyMode = 1
 endif
 
 
@@ -103,12 +103,29 @@ Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdcommenter'
 
 if index(g:bundle_group, 'lightline') >= 0
+    set noshowmode
   Plug 'itchyny/lightline.vim'
-
   let g:lightline = {}
   let g:lightline = {
     \ 'colorscheme': 'dracula',
     \ }
+
+  let g:lightline.component_expand = {
+      \  'linter_checking': 'lightline#ale#checking',
+      \  'linter_infos': 'lightline#ale#infos',
+      \  'linter_warnings': 'lightline#ale#warnings',
+      \  'linter_errors': 'lightline#ale#errors',
+      \  'linter_ok': 'lightline#ale#ok',
+      \ }
+
+    let g:lightline.component_type = {
+        \     'linter_checking': 'right',
+        \     'linter_infos': 'right',
+        \     'linter_warnings': 'warning',
+        \     'linter_errors': 'error',
+        \     'linter_ok': 'right',
+        \ }
+ "let g:lightline.active = { 'right': [[ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok' ]] }
 
   let g:lightline.separator = {
     \   'left': '', 'right': ''
@@ -116,6 +133,16 @@ if index(g:bundle_group, 'lightline') >= 0
   let g:lightline.subseparator = {
     \   'left': '', 'right': ''
     \}
+
+  Plug 'maximbaz/lightline-ale'
+
+    let g:lightline#ale#indicator_checking = "\uf110"
+    let g:lightline#ale#indicator_infos = "\uf129"
+    let g:lightline#ale#indicator_warnings = "\uf071"
+    let g:lightline#ale#indicator_errors = "\uf05e"
+    let g:lightline#ale#indicator_ok = "\uf00c"
+
+
 
 endif
 
@@ -127,8 +154,7 @@ let g:clang_format#auto_format = 1
 let g:clang_format#code_style = 'Chromium'
 let g:clang_format#style_options = {'SortIncludes ' : 'false'}
 
-Plug 'sbdchd/neoformat', {'for': ['python','vim']}
-
+Plug 'sbdchd/neoformat', {'for': ['python','vim', 'javascript']}
 " let g:neoformat_python_autopep8 = {
 "             \ 'exe': 'autopep8',
 "             \ 'args': ['-a', '-a', '-a', '-'],
@@ -136,7 +162,7 @@ Plug 'sbdchd/neoformat', {'for': ['python','vim']}
 "             \ }
 let g:neoformat_python_autopep8 = {
             \ 'exe': 'autopep8',
-            \ 'args': ['-a', '-a', '-a', '-'],
+            \ 'args': ['-a', '-a', '-a', '--max-line-length 80','-'],
             \ 'stdin': 1,
             \ }
 
@@ -146,14 +172,13 @@ let g:neoformat_try_formatprg = 1
 
 let g:neoformat_verbose = 0
 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " coc.nvim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if (index(g:bundle_group, 'coc') >= 0 && v:version >= 800)
-    Plug 'neoclide/coc.nvim', {'branch': 'release', 'for': ['python', 'cpp']}
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
     " if hidden is not set, TextEdit might fail.
-    set hidden
-
     " Some servers have issues with backup files, see #649
     set nobackup
     set nowritebackup
@@ -341,6 +366,9 @@ if (index(g:bundle_group, 'ale') >= 0 && v:version >= 800)
 
 
   let g:ale_python_pylint_auto_pipenv = 0
+
+  let g:ale_sign_error = '✗'
+  let g:ale_sign_warning = '⚡'
 endif
 
 Plug 'stephpy/vim-yaml'
@@ -349,16 +377,86 @@ Plug 'martinda/Jenkinsfile-vim-syntax'
 
 " 表格对齐，使用命令 Tabularize
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
-            
-
-Plug 'lyokha/vim-xkbswitch', {'on': 'EnableXkbSwitch'}
-
-" On-demand lazy load
-Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 
 if index(g:bundle_group, 'marketdown') >= 0
     Plug 'dhruvasagar/vim-table-mode'
 endif
+
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'airblade/vim-rooter'
+Plug 'voldikss/vim-floaterm'
+
+" This is the default extra key bindings
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+" Enable per-command history.
+" CTRL-N and CTRL-P will be automatically bound to next-history and
+" previous-history instead of down and up. If you don't like the change,
+" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+
+map <C-f> :Files<CR>
+map <leader>b :Buffers<CR>
+nnoremap <leader>g :Rg<CR>
+nnoremap <leader>t :Tags<CR>
+nnoremap <leader>m :Marks<CR>
+
+
+let g:fzf_tags_command = 'ctags -R'
+" Border color
+let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp' } }
+
+let $FZF_DEFAULT_OPTS = '--layout=reverse --info=inline'
+let $FZF_DEFAULT_COMMAND="rg --files --hidden"
+
+
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+"Get Files
+command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
+
+
+" Get text in files with Rg
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
+
+" Ripgrep advanced
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
+" Git grep
+command! -bang -nargs=* GGrep
+  \ call fzf#vim#grep(
+  \   'git grep --line-number '.shellescape(<q-args>), 0,
+  \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
 call plug#end()
 
 

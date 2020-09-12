@@ -35,10 +35,10 @@ command! W w !sudo tee % > /dev/null
 set scrolloff=7
 
 " Avoid garbled characters in Chinese language windows OS
-"let $LANG='en' 
-"set langmenu=en
-"source $VIMRUNTIME/delmenu.vim
-"source $VIMRUNTIME/menu.vim
+let $LANG='en' 
+set langmenu=en
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
 
 " Turn on the Wild menu
 set wildmenu
@@ -72,6 +72,8 @@ set hlsearch
 
 " Makes search act like search in modern browsers
 set incsearch 
+
+set inccommand=nosplit
 
 " Don't redraw while executing macros (good performance config)
 set lazyredraw 
@@ -185,7 +187,7 @@ map <C-l> <C-W>l
 set laststatus=2
 
 " Format the status line
-"set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
 
 function! HasPaste()
     if &paste

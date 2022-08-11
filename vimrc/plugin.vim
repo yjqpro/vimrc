@@ -3,8 +3,8 @@ if !exists('g:bundle_group')
   let g:bundle_group += ['enhanced']
   "let g:bundle_group += ['tags']
   let g:bundle_group += ['lightline']
-  let g:bundle_group += ['ale']
-  "let g:bundle_group += ['coc']
+  " let g:bundle_group += ['ale']
+  let g:bundle_group += ['coc']
   let g:bundle_group += ['marketdown']
 endif
 
@@ -15,8 +15,6 @@ call plug#begin('~/.vim/bundles')
 if index(g:bundle_group, 'basic') >= 0
     Plug 'justinmk/vim-sneak'
     let g:sneak#label = 1
-
-    Plug 'skywind3000/asyncrun.vim'
 
     Plug 'justinmk/vim-dirvish'
 
@@ -32,7 +30,9 @@ if index(g:bundle_group, 'basic') >= 0
     noremap <c-n> :LeaderfMru<cr>
     noremap <M-m> :LeaderfFunction<cr>
     noremap <M-n> :LeaderfBuffer<cr>
-    "let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': 'mononoki Nerd Font Mono' }
+    noremap <leader>f :Leaderf rg<cr>
+    
+    let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': 'mononoki Nerd Font Mono' }
 
 
     let g:Lf_RootMarkers = ['.root', '.git']
@@ -53,12 +53,23 @@ if index(g:bundle_group, 'basic') >= 0
         \ "Colorscheme":    [["<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
         \ }
 
+    let g:Lf_RgConfig = [
+        \ "--max-columns=50",
+        \ "--glob=!node_modules/*",
+        \ "--glob=!dist/*",]
+
     Plug 'tpope/vim-surround'
 
 
     Plug 'joshdick/onedark.vim'
 
+
     Plug 'dracula/vim', { 'as': 'dracula' }
+    
+    Plug 'sainnhe/gruvbox-material'
+
+
+    Plug 'tpope/vim-unimpaired'
 endif
 
 
@@ -107,7 +118,7 @@ if index(g:bundle_group, 'lightline') >= 0
   Plug 'itchyny/lightline.vim'
   let g:lightline = {}
   let g:lightline = {
-    \ 'colorscheme': 'dracula',
+    \ 'colorscheme': 'gruvbox_material',
     \ }
 
   let g:lightline.component_expand = {
@@ -246,8 +257,8 @@ if (index(g:bundle_group, 'coc') >= 0 && v:version >= 800)
     nmap <F2> <Plug>(coc-rename)
 
     " Remap for format selected region
-    xmap <leader>f  <Plug>(coc-format-selected)
-    nmap <leader>f  <Plug>(coc-format-selected)
+    " xmap <leader>f  <Plug>(coc-format-selected)
+    " nmap <leader>f  <Plug>(coc-format-selected)
 
     augroup mygroup
     autocmd!
@@ -258,11 +269,11 @@ if (index(g:bundle_group, 'coc') >= 0 && v:version >= 800)
     augroup end
 
     " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-    xmap <leader>a  <Plug>(coc-codeaction-selected)
-    nmap <leader>a  <Plug>(coc-codeaction-selected)
+    " xmap <leader>a  <Plug>(coc-codeaction-selected)
+    " nmap <leader>a  <Plug>(coc-codeaction-selected)
 
     " Remap for do codeAction of current line
-    nmap <leader>ac  <Plug>(coc-codeaction)
+    " nmap <leader>ac  <Plug>(coc-codeaction)
     " Fix autofix problem of current line
     "nmap <leader>qf  <Plug>(coc-fix-current)
 
@@ -273,8 +284,8 @@ if (index(g:bundle_group, 'coc') >= 0 && v:version >= 800)
     omap af <Plug>(coc-funcobj-a)
 
     " Use <TAB> for select selections ranges, needs server support, like: coc-tsserver, coc-python
-    nmap <silent> <TAB> <Plug>(coc-range-select)
-    xmap <silent> <TAB> <Plug>(coc-range-select)
+    "nmap <silent> <TAB> <Plug>(coc-range-select)
+    "xmap <silent> <TAB> <Plug>(coc-range-select)
 
     " Use `:Format` to format current buffer
     command! -nargs=0 Format :call CocAction('format')
@@ -382,82 +393,24 @@ if index(g:bundle_group, 'marketdown') >= 0
     Plug 'dhruvasagar/vim-table-mode'
 endif
 
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+
+let g:_spacevim_if_lua = 0
+Plug 'wsdjeg/FlyGrep.vim'
+
 Plug 'airblade/vim-rooter'
 Plug 'voldikss/vim-floaterm'
 
-" This is the default extra key bindings
-let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit' }
 
-" Enable per-command history.
-" CTRL-N and CTRL-P will be automatically bound to next-history and
-" previous-history instead of down and up. If you don't like the change,
-" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
-let g:fzf_history_dir = '~/.local/share/fzf-history'
+Plug 'skywind3000/asyncrun.vim'
+Plug 'skywind3000/asynctasks.vim'
 
-map <C-f> :Files<CR>
-map <leader>b :Buffers<CR>
-nnoremap <leader>g :Rg<CR>
-nnoremap <leader>t :Tags<CR>
-nnoremap <leader>m :Marks<CR>
+"let g:vimspector_enable_mappings = 'HUMAN'
+let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
 
+"Plug 'puremourning/vimspector'
 
-let g:fzf_tags_command = 'ctags -R'
-" Border color
-let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp' } }
+let g:asyncrun_open = 10
 
-let $FZF_DEFAULT_OPTS = '--layout=reverse --info=inline'
-let $FZF_DEFAULT_COMMAND="rg --files --hidden"
-
-
-" Customize fzf colors to match your color scheme
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
-
-"Get Files
-command! -bang -nargs=? -complete=dir Files
-    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
-
-
-" Get text in files with Rg
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview(), <bang>0)
-
-" Ripgrep advanced
-function! RipgrepFzf(query, fullscreen)
-  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
-  let initial_command = printf(command_fmt, shellescape(a:query))
-  let reload_command = printf(command_fmt, '{q}')
-  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
-  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
-endfunction
-
-command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
-
-" Git grep
-command! -bang -nargs=* GGrep
-  \ call fzf#vim#grep(
-  \   'git grep --line-number '.shellescape(<q-args>), 0,
-  \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
 call plug#end()
-
-
-colorscheme onedark
+let g:gruvbox_material_better_performance = 1
+colorscheme gruvbox-material

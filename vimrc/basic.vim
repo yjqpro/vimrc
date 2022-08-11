@@ -73,7 +73,7 @@ set hlsearch
 " Makes search act like search in modern browsers
 set incsearch 
 
-set inccommand=nosplit
+" set inccommand=nosplit
 
 " Don't redraw while executing macros (good performance config)
 set lazyredraw 
